@@ -682,6 +682,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   rotationSpeed: 500
+  stretchSpeed: 5
+  deltaVelocity: 5
 --- !u!58 &1033217896
 CircleCollider2D:
   m_ObjectHideFlags: 0

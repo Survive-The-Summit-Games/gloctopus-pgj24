@@ -6,6 +6,8 @@ public class SimpleMovement : MonoBehaviour
 {
     public float speed;
     public float rotationSpeed;
+    public float stretchSpeed;
+    public float deltaVelocity;
 
     Rigidbody2D rb;
 
@@ -27,7 +29,7 @@ public class SimpleMovement : MonoBehaviour
         movementDirection.Normalize();
 
         //transform.Translate(movementDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
-        rb.velocity = movementDirection * speed * inputMagnitude;
+        rb.velocity = movementDirection * inputMagnitude * (speed + Mathf.Cos(Time.time * stretchSpeed) * deltaVelocity);
 
         if (movementDirection != Vector2.zero)
         {
