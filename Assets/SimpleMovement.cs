@@ -6,10 +6,13 @@ public class SimpleMovement : MonoBehaviour
 {
     public float speed;
     public float rotationSpeed;
+
+    Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -23,7 +26,8 @@ public class SimpleMovement : MonoBehaviour
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
         movementDirection.Normalize();
 
-        transform.Translate(movementDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
+        //transform.Translate(movementDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
+        rb.velocity = movementDirection * speed * inputMagnitude;
 
         if (movementDirection != Vector2.zero)
         {
