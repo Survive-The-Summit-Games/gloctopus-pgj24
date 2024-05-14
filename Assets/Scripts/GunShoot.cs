@@ -24,7 +24,7 @@ public class GunShoot : MonoBehaviour
     public void Fire() {
         //every time you fire a bullet, add to the recoil.. of course you can probably set a max recoil etc..
         recoil += 0.1f;
-        rb.AddForce(-this.rb.transform.right * kickback);
+        rb.AddForce(GameObject.FindGameObjectWithTag("Gloctopus").transform.up * kickback);
     }
 
 

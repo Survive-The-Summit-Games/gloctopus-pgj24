@@ -74,11 +74,6 @@ public class Gun : MonoBehaviour
             // Apply the opposite rotation to the child object
             transform.rotation = Quaternion.Slerp(transform.rotation, oppositeRotation, Time.deltaTime * 10f);
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            this.Fire();
-        }
     }
 
     public void Fire() {
@@ -93,8 +88,12 @@ public class Gun : MonoBehaviour
             this.current_exit = (this.current_exit + 1 < this.gun_exit.Length) ? this.current_exit + 1 : 0;
             this.GetComponentInParent<GunShoot>().Fire();
         }
+        else if (this.current_clip == 0 && this.gun_total_ammo > 0)
+        {
+            this.reload();
+        }
         else { 
-            // display some message saying out of ammo entirely
+            // display some message saying no more ammo
         }
     }
 
