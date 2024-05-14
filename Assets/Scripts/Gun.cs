@@ -67,7 +67,8 @@ public class Gun : MonoBehaviour
         if (this.mainBody != null)
         {
             // Calculate the opposite direction relative to the parent's right direction
-            Quaternion oppositeRotation = Quaternion.LookRotation(-this.mainBody.transform.right, this.mainBody.transform.forward);
+            Vector2 direction = (transform.root.position - transform.position).normalized;
+            Quaternion oppositeRotation = Quaternion.LookRotation(direction, this.mainBody.transform.right);
             oppositeRotation.x = 0;
             oppositeRotation.y = 0;
 

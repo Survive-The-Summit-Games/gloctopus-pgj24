@@ -7,6 +7,7 @@ public class GunShoot : MonoBehaviour
     public Transform pivot_point;
     public float max_recoil_z { get; set; } = 20;
     public float recoil_speed { get; set; } = 10;
+    public float recoil_variance { get; set; } = 5;
     public float kickback { get; set; } = 10f;
 
     public Rigidbody2D rb;
@@ -24,7 +25,8 @@ public class GunShoot : MonoBehaviour
     public void Fire() {
         //every time you fire a bullet, add to the recoil.. of course you can probably set a max recoil etc..
         recoil += 0.1f;
-        rb.AddForce(GameObject.FindGameObjectWithTag("Gloctopus").transform.up * kickback);
+        Vector2 direction = Quaternion.AngleAxis(Random.Range(-recoil_variance, recoil_variance), Vector3.left) * (transform.root.position - rb.transform.position).normalized;
+        rb.AddForce(direction * kickback);
     }
 
 
