@@ -9,12 +9,11 @@ public class GunShoot : MonoBehaviour
     public float recoil_speed { get; set; } = 10;
     public float kickback { get; set; } = 10f;
 
-    private Rigidbody rb;
+    public Rigidbody2D rb;
     private float recoil = 0.0f;
 
     private void Start()
     {
-        rb = this.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -25,7 +24,7 @@ public class GunShoot : MonoBehaviour
     public void Fire() {
         //every time you fire a bullet, add to the recoil.. of course you can probably set a max recoil etc..
         recoil += 0.1f;
-        rb.AddForce(-this.transform.right * kickback, ForceMode.Impulse);
+        rb.AddForce(-this.rb.transform.right * kickback);
     }
 
 

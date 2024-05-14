@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = System.Random;
 
 public enum GunType { 
     Manual,
@@ -21,6 +22,7 @@ public class Gun : MonoBehaviour
     private int gun_id;
     private int current_clip;
     private int current_exit = 0;
+    private Transform mainBody;
 
     // Gun Info
     [SerializeField] private Transform[] gun_exit;
@@ -41,6 +43,12 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Generate a random value for the gun id
+        Random random = new Random();
+
+        // Generate a random number between 100000 and 999999
+        this.gun_id = random.Next(100000, 1000000);
+
         // set up the clip to be the correct amount
         this.current_clip = this.gun_clip_size;
         this.gun_total_ammo -= this.current_clip;
@@ -50,10 +58,23 @@ public class Gun : MonoBehaviour
         parent_script.max_recoil_z = this.gun_max_recoil_z;
         parent_script.recoil_speed = this.gun_recoil_speed;
         parent_script.kickback = this.gun_kickback;
+
+        this.mainBody = GameObject.FindGameObjectWithTag("Gloctopus").transform;
     }
 
     private void Update()
     {
+        if (this.mainBody != null)
+        {
+            // Calculate the opposite direction relative to the parent's right direction
+            Quaternion oppositeRotation = Quaternion.LookRotation(-this.mainBody.transform.right, this.mainBody.transform.forward);
+            oppositeRotation.x = 0;
+            oppositeRotation.y = 0;
+
+            // Apply the opposite rotation to the child object
+            transform.rotation = Quaternion.Slerp(transform.rotation, oppositeRotation, Time.deltaTime * 10f);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             this.Fire();
@@ -63,9 +84,13 @@ public class Gun : MonoBehaviour
     public void Fire() {
         if (this.gun_total_ammo + this.current_clip != 0)
         {
-            GameObject current_Bullet = Instantiate(this.bullet, gun_exit[this.current_exit].position, gun_exit[this.current_exit].rotation, GameObject.Find("ParentObject").transform);
+            Vector3 temp_position = gun_exit[this.current_exit].position;
+            temp_position.z = 0;
+            GameObject current_Bullet = Instantiate(this.bullet, temp_position, gun_exit[this.current_exit].rotation, GameObject.Find("ParentObject").transform);
             current_Bullet.GetComponent<Bullet>().Fire(this.bullet_speed);
+            current_Bullet.GetComponent<Bullet>().shot_from = this.gun_id;
             this.current_clip -= 1;
+            this.current_exit = (this.current_exit + 1 < this.gun_exit.Length) ? this.current_exit + 1 : 0;
             this.GetComponentInParent<GunShoot>().Fire();
         }
         else { 
