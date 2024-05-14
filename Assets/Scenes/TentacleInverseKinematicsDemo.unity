@@ -300,7 +300,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.05
 --- !u!50 &516925225
 Rigidbody2D:
   serializedVersion: 4
@@ -314,9 +314,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.01
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -620,7 +620,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.05
 --- !u!50 &1031736415
 Rigidbody2D:
   serializedVersion: 4
@@ -634,9 +634,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.01
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -729,7 +729,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -743,7 +743,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1033217898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,7 +910,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.05
 --- !u!50 &1050245037
 Rigidbody2D:
   serializedVersion: 4
@@ -924,9 +924,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.01
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1026,7 +1026,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.05
 --- !u!50 &1079047345
 Rigidbody2D:
   serializedVersion: 4
@@ -1040,9 +1040,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.01
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1197,7 +1197,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.05
 --- !u!50 &1147994109
 Rigidbody2D:
   serializedVersion: 4
@@ -1211,9 +1211,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.01
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1313,7 +1313,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.05
 --- !u!50 &1230845283
 Rigidbody2D:
   serializedVersion: 4
@@ -1327,9 +1327,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.01
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1484,7 +1484,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.05
 --- !u!50 &1514468061
 Rigidbody2D:
   serializedVersion: 4
@@ -1498,9 +1498,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.01
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1599,6 +1599,7 @@ GameObject:
   - component: {fileID: 1659683513}
   - component: {fileID: 1659683512}
   - component: {fileID: 1659683515}
+  - component: {fileID: 1659683516}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1724,6 +1725,23 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1659683516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659683511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e010898a11796564e93fcd7eae89f6f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceJoint2Ds: []
+  medianDistance: 0
+  deltaDistance: 0
+  stretchSpeed: 0
+  maxSpeed: 0
 --- !u!1 &1662464324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,7 +1865,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.05
 --- !u!50 &2041250134
 Rigidbody2D:
   serializedVersion: 4
@@ -1861,9 +1879,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.01
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2039,6 +2057,7 @@ GameObject:
   - component: {fileID: 1033217896}
   - component: {fileID: 1033217895}
   - component: {fileID: 1033217901}
+  - component: {fileID: 919132148306095063}
   m_Layer: 0
   m_Name: Gloctopus
   m_TagString: Untagged
@@ -2046,6 +2065,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &919132148306095063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148306095062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e010898a11796564e93fcd7eae89f6f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceJoint2Ds:
+  - {fileID: 2041250135}
+  - {fileID: 1050245038}
+  - {fileID: 516925226}
+  - {fileID: 1031736416}
+  - {fileID: 1079047346}
+  - {fileID: 1230845284}
+  - {fileID: 1147994110}
+  - {fileID: 1514468062}
+  medianDistance: 4
+  deltaDistance: 1
+  stretchSpeed: 5
+  maxSpeed: 15
 --- !u!4 &921389863683437967
 Transform:
   m_ObjectHideFlags: 0
@@ -2569,8 +2613,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5598112436467283794, guid: f1715dacc8c9db14ea59e6867d5a2357, type: 3}
-  - {fileID: 2100000, guid: 6a636f10c3514fc4192b46fae54e053a, type: 2}
+  - {fileID: 2100000, guid: 855af3c5b3cc4b14981ad75a40fe3cc4, type: 2}
+  - {fileID: 2100000, guid: 79febcc81b41a5449b7499057b3e7cd1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
