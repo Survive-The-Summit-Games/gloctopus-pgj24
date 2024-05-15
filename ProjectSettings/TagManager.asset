@@ -7,6 +7,7 @@ TagManager:
   - Gloctopus
   - Gun
   - Gun_Image
+  - Gun_Holder
   layers:
   - Default
   - TransparentFX

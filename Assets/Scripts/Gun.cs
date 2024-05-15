@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = System.Random;
 
 public enum GunType { 
@@ -17,6 +18,7 @@ public class Gun : MonoBehaviour
     // Gun Flavor
     [SerializeField] private string gun_name;
     [SerializeField] private string gun_description;
+    [SerializeField] private Image gun_Icon;
 
     // Hidden Info
     private int gun_id;
@@ -39,6 +41,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private float gun_max_recoil_z = 20.0f;
     [SerializeField] private float gun_recoil_speed = 10.0f;
     [SerializeField] private float gun_kickback = 10.0f;
+    [SerializeField] private float recoil_variance = 5;
+    [SerializeField] private Rigidbody2D arm_rb;
 
     // Start is called before the first frame update
     void Start()
@@ -54,10 +58,6 @@ public class Gun : MonoBehaviour
         this.gun_total_ammo -= this.current_clip;
 
         // set up the kickback with the right stuff
-        var parent_script = this.GetComponentInParent<GunShoot>();
-        parent_script.max_recoil_z = this.gun_max_recoil_z;
-        parent_script.recoil_speed = this.gun_recoil_speed;
-        parent_script.kickback = this.gun_kickback;
 
         this.mainBody = GameObject.FindGameObjectWithTag("Gloctopus").transform;
     }
@@ -87,7 +87,7 @@ public class Gun : MonoBehaviour
             current_Bullet.GetComponent<Bullet>().shot_from = this.gun_id;
             this.current_clip -= 1;
             this.current_exit = (this.current_exit + 1 < this.gun_exit.Length) ? this.current_exit + 1 : 0;
-            this.GetComponentInParent<GunShoot>().Fire();
+            this.Recoil();
         }
         else if (this.current_clip == 0 && this.gun_total_ammo > 0)
         {
@@ -111,5 +111,15 @@ public class Gun : MonoBehaviour
         else { 
             // idk display some message saying out of ammo
         }
+    }
+
+    public void Recoil()
+    {
+        //every time you fire a bullet, add to the recoil.. of course you can probably set a max recoil etc..
+        //recoil += 0.1f;
+        // TODO: NATE idk why this random isnt working lmao
+        //Vector2 direction = Quaternion.AngleAxis(Random.Range(-recoil_variance, recoil_variance), Vector3.left) * (transform.root.position - this.arm_rb.transform.position).normalized;
+        Vector2 direction = Quaternion.AngleAxis(0, Vector3.left) * (transform.root.position - this.arm_rb.transform.position).normalized;
+        this.arm_rb.AddForce(direction * this.gun_kickback);
     }
 }
