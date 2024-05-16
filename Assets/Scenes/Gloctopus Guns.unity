@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 516925226}
   m_Layer: 0
   m_Name: TentacleTarget (2)
-  m_TagString: Untagged
+  m_TagString: Gun_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1102,7 +1102,7 @@ GameObject:
   - component: {fileID: 1031736416}
   m_Layer: 0
   m_Name: TentacleTarget (3)
-  m_TagString: Untagged
+  m_TagString: Gun_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1394,7 +1394,7 @@ GameObject:
   - component: {fileID: 1050245038}
   m_Layer: 0
   m_Name: TentacleTarget (1)
-  m_TagString: Untagged
+  m_TagString: Gun_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1553,7 +1553,7 @@ GameObject:
   - component: {fileID: 1079047346}
   m_Layer: 0
   m_Name: TentacleTarget (4)
-  m_TagString: Untagged
+  m_TagString: Gun_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1858,7 +1858,7 @@ GameObject:
   - component: {fileID: 1147994110}
   m_Layer: 0
   m_Name: TentacleTarget (6)
-  m_TagString: Untagged
+  m_TagString: Gun_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2047,7 +2047,7 @@ GameObject:
   - component: {fileID: 1230845284}
   m_Layer: 0
   m_Name: TentacleTarget (5)
-  m_TagString: Untagged
+  m_TagString: Gun_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2260,7 +2260,7 @@ GameObject:
   - component: {fileID: 1514468062}
   m_Layer: 0
   m_Name: TentacleTarget (7)
-  m_TagString: Untagged
+  m_TagString: Gun_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2498,6 +2498,67 @@ Transform:
   - {fileID: 84371117}
   m_Father: {fileID: 8456930878680397792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1537221409
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2177976900639606494, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Name
+      value: HandGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220725956625373356, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: gun_in_world
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.701626
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.31429958
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.46531
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
 --- !u!1 &1608948217
 GameObject:
   m_ObjectHideFlags: 0
@@ -3045,7 +3106,7 @@ GameObject:
   - component: {fileID: 2041250135}
   m_Layer: 0
   m_Name: TentacleTarget
-  m_TagString: Untagged
+  m_TagString: Gun_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4891,3 +4952,4 @@ SceneRoots:
   - {fileID: 7681582893812989591}
   - {fileID: 1824449166}
   - {fileID: 1147977810}
+  - {fileID: 1537221409}

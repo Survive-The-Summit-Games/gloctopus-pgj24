@@ -28,7 +28,7 @@ public class GunQueue : MonoBehaviour
     private GameObject[] guns = { null, null, null, null, null, null, null, null }; // our collection of guns
     private int current_idx = 0; // What Gun we are currently on
 
-    private bool updated = false;
+    private bool updated = false; 
     private pick_up_mode pick_up_mode = pick_up_mode.nothing;
 
     // Start is called before the first frame update
@@ -81,6 +81,7 @@ public class GunQueue : MonoBehaviour
         {
             PickUp(closestGun, false);
             closestGun = null;
+            this.UpdateAmmoText();
             // Do we also want it to flip to it?
         }
 
@@ -95,6 +96,8 @@ public class GunQueue : MonoBehaviour
             temp_throw_gun.transform.rotation = closestGun.transform.rotation;
             temp_throw_gun.transform.localScale = closestGun.transform.localScale;
             PickUp(closestGun, true);
+            closestGun = null;
+            this.UpdateAmmoText();
         }
 
         // Fire the current gun when Space is pressed
@@ -139,13 +142,13 @@ public class GunQueue : MonoBehaviour
             temp_spot = this.SpotAvailable();
         }
         this.guns[temp_spot] = closestGun;
+        this.gun_wheel_images[temp_spot] = closestGun.GetComponent<Gun>().gun_Icon;
         closestGun.GetComponent<Gun>().gun_in_world = false;
         closestGun.GetComponent<Gun>().arm_rb = gun_targets[temp_spot].GetComponent<Rigidbody2D>();
         closestGun.transform.parent = this.gun_holders[temp_spot].transform;
         closestGun.transform.localPosition = Vector3.zero;
         closestGun.transform.localRotation = Quaternion.identity;
         closestGun.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
-        this.UpdateGunWheel();
     }
 
     private void UpdateAmmoText()
@@ -160,7 +163,9 @@ public class GunQueue : MonoBehaviour
             Transform temp_parent = this.gun_wheel_images[i].transform;
             if (this.guns[i] != null)
             {
+                
                 Instantiate(this.guns[i].GetComponent<Gun>().gun_Icon, temp_parent, false);
+
             }
         }
     }
