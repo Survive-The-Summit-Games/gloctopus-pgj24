@@ -43,7 +43,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private float gun_recoil_speed = 10.0f;
     [SerializeField] private float gun_kickback = 10.0f;
     [SerializeField] private float recoil_variance = 5;
-    [SerializeField] private Rigidbody2D arm_rb;
+    public Rigidbody2D arm_rb;
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +69,7 @@ public class Gun : MonoBehaviour
         {
             // Calculate the opposite direction relative to the parent's right direction
             Vector2 direction = (transform.root.position - transform.position).normalized;
-            Quaternion oppositeRotation = Quaternion.LookRotation(direction, this.mainBody.transform.right);
+            Quaternion oppositeRotation = Quaternion.LookRotation(direction, this.mainBody.transform.right); // NATE this is yelling at me saying "view direction is zero"
             oppositeRotation.x = 0;
             oppositeRotation.y = 0;
 

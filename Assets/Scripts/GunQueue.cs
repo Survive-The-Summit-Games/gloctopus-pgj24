@@ -5,6 +5,7 @@ using Input = UnityEngine.Input;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public enum pick_up_mode
 {
@@ -23,6 +24,7 @@ public class GunQueue : MonoBehaviour
     private GameObject[] gun_wheel_images;
     private bool isRotating = false; // Flag to check if the wheel is rotating
     private GameObject[] gun_holders;
+    private GameObject[] gun_targets;
     private GameObject[] guns = { null, null, null, null, null, null, null, null }; // our collection of guns
     private int current_idx = 0; // What Gun we are currently on
 
@@ -34,6 +36,7 @@ public class GunQueue : MonoBehaviour
     {
         this.gun_wheel_images = GameObject.FindGameObjectsWithTag("Gun_Image").OrderBy(go => go.name).ToArray();
         this.gun_holders = GameObject.FindGameObjectsWithTag("Gun_Holder").OrderBy(go => go.name).ToArray();
+        this.gun_targets = GameObject.FindGameObjectsWithTag("Gun_Target").OrderBy(go => go.name).ToArray();
 
         // Iterate through the gun_holders array
         for (int i = 0; i < gun_holders.Length; i++)
@@ -74,29 +77,31 @@ public class GunQueue : MonoBehaviour
             return; // Block input during rotation
         }
 
-        if (this.pick_up_mode == pick_up_mode.pick_up && Input.GetKeyDown(KeyCode.P) && closestGun != null) {
-            int temp_spot = this.SpotAvailable();
-            this.guns[temp_spot] = closestGun;
-            closestGun.GetComponent<Gun>().gun_in_world = false;
-            Instantiate(closestGun, this.gun_holders[temp_spot].transform, false);
-            Destroy(closestGun);
+        if (this.pick_up_mode == pick_up_mode.pick_up && Input.GetKeyDown(KeyCode.P) && closestGun != null)
+        {
+            PickUp(closestGun, false);
             closestGun = null;
-            this.UpdateGunWheel();
             // Do we also want it to flip to it?
-
         }
 
         if (this.pick_up_mode == pick_up_mode.replace && Input.GetKeyDown(KeyCode.L) && closestGun != null)
         {
+            GameObject temp_throw_gun = this.guns[current_idx];
+            this.guns[current_idx] = null;
+            temp_throw_gun.GetComponent<Gun>().gun_in_world = true;
+            temp_throw_gun.GetComponent<Gun>().arm_rb = null;
+            temp_throw_gun.transform.parent = closestGun.transform.parent;
+            temp_throw_gun.transform.position = closestGun.transform.position;
+            temp_throw_gun.transform.rotation = closestGun.transform.rotation;
+            temp_throw_gun.transform.localScale = closestGun.transform.localScale;
+            PickUp(closestGun, true);
         }
 
         // Fire the current gun when Space is pressed
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (this.guns[this.current_idx].GetComponent<Gun>().Fire())
-            {
-                this.UpdateAmmoText();
-            }
+            this.guns[this.current_idx].GetComponent<Gun>().Fire();
+            this.UpdateAmmoText();
         }
 
         // Rotate to the previous gun when Mouse0 or Q is pressed
@@ -124,6 +129,25 @@ public class GunQueue : MonoBehaviour
         }
     }
 
+    private void PickUp(GameObject closestGun, bool current_spot) {
+        int temp_spot;
+        if (current_spot)
+        {
+            temp_spot = this.current_idx;
+        }
+        else {
+            temp_spot = this.SpotAvailable();
+        }
+        this.guns[temp_spot] = closestGun;
+        closestGun.GetComponent<Gun>().gun_in_world = false;
+        closestGun.GetComponent<Gun>().arm_rb = gun_targets[temp_spot].GetComponent<Rigidbody2D>();
+        closestGun.transform.parent = this.gun_holders[temp_spot].transform;
+        closestGun.transform.localPosition = Vector3.zero;
+        closestGun.transform.localRotation = Quaternion.identity;
+        closestGun.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+        this.UpdateGunWheel();
+    }
+
     private void UpdateAmmoText()
     {
         this.ammo_text.text = this.guns[this.current_idx].GetComponent<Gun>().GetAmmoText();
@@ -144,23 +168,36 @@ public class GunQueue : MonoBehaviour
     // Coroutine to handle the complete switching process
     private IEnumerator SwitchGun(int direction)
     {
-        isRotating = true;
+        int new_pos = (current_idx + direction + guns.Length) % guns.Length;
 
-        // Shrink and move down the current gun wheel image
-        yield return StartCoroutine(ShrinkAndMoveDown(gun_wheel_images[current_idx]));
+        // search for the next gun that exists
+        while (this.guns[new_pos] == null)
+        {
+            //Debug.Log("Looking for next gun");
+            new_pos = (new_pos + direction + guns.Length) % guns.Length;
+        }
+        //Debug.Log("Found next gun " + new_pos);
 
-        // Update the current index
-        current_idx = (current_idx + direction + guns.Length) % guns.Length;
+        if (new_pos != current_idx)
+        {
+            isRotating = true;
 
-        // Rotate the gun wheel
-        yield return StartCoroutine(RotateGunWheel());
+            // Shrink and move down the current gun wheel image
+            yield return StartCoroutine(ShrinkAndMoveDown(gun_wheel_images[current_idx]));
 
-        this.UpdateAmmoText();
+            // Update the current index
+            current_idx = new_pos;
 
-        // Grow and move up the new gun wheel image
-        yield return StartCoroutine(GrowAndMoveUp(gun_wheel_images[current_idx]));
+            // Rotate the gun wheel
+            yield return StartCoroutine(RotateGunWheel());
 
-        isRotating = false;
+            this.UpdateAmmoText();
+
+            // Grow and move up the new gun wheel image
+            yield return StartCoroutine(GrowAndMoveUp(gun_wheel_images[current_idx]));
+
+            isRotating = false;
+        }
         updated = false;
     }
 
