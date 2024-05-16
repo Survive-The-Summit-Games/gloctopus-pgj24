@@ -16,13 +16,13 @@ public enum GunType {
 public class Gun : MonoBehaviour
 {
     // Gun Flavor
-    [SerializeField] private string gun_name;
-    [SerializeField] private string gun_description;
-    [SerializeField] private Image gun_Icon;
+    public string gun_name;
+    public string gun_description;
+    public GameObject gun_Icon;
 
     // Hidden Info
     private int gun_id;
-    private int current_clip;
+    private int current_clip = 0;
     private int current_exit = 0;
     private Transform mainBody;
 
@@ -32,6 +32,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private float gun_weight = 0.0f;
     [SerializeField] private int gun_total_ammo = 1000;
     [SerializeField] private int gun_clip_size = 20;
+    public bool gun_in_world = false;
 
     // The Bullet itself
     [SerializeField] private GameObject bullet;
@@ -55,7 +56,7 @@ public class Gun : MonoBehaviour
 
         // set up the clip to be the correct amount
         this.current_clip = this.gun_clip_size;
-        this.gun_total_ammo -= this.current_clip;
+        this.gun_total_ammo -= this.gun_clip_size;
 
         // set up the kickback with the right stuff
 
@@ -77,17 +78,22 @@ public class Gun : MonoBehaviour
         }
     }
 
-    public void Fire() {
-        if (this.gun_total_ammo + this.current_clip != 0)
+    public string GetAmmoText() {
+        return this.current_clip + " in Clip\n" + this.gun_total_ammo + " Ammo Left";
+    }
+
+    public bool Fire() {
+        if (this.current_clip != 0)
         {
+            this.current_clip -= 1;
             Vector3 temp_position = gun_exit[this.current_exit].position;
             temp_position.z = 0;
             GameObject current_Bullet = Instantiate(this.bullet, temp_position, gun_exit[this.current_exit].rotation, GameObject.Find("ParentObject").transform);
             current_Bullet.GetComponent<Bullet>().Fire(this.bullet_speed);
             current_Bullet.GetComponent<Bullet>().shot_from = this.gun_id;
-            this.current_clip -= 1;
             this.current_exit = (this.current_exit + 1 < this.gun_exit.Length) ? this.current_exit + 1 : 0;
             this.Recoil();
+            return true;
         }
         else if (this.current_clip == 0 && this.gun_total_ammo > 0)
         {
@@ -96,6 +102,7 @@ public class Gun : MonoBehaviour
         else { 
             // display some message saying no more ammo
         }
+        return false;
     }
 
     public void reload() {

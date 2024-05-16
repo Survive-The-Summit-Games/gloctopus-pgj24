@@ -4,6 +4,12 @@ using System.Linq;
 using Input = UnityEngine.Input;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
+
+public enum pick_up_mode
+{
+    pick_up, replace, nothing
+}
 
 public class GunQueue : MonoBehaviour
 {
@@ -11,13 +17,17 @@ public class GunQueue : MonoBehaviour
     public float rotationDuration = 0.25f; // Duration of the rotation
     public float transformDuration = 0.5f; // Duration of the scale and translation
 
+    public Text ammo_text;
+    public Text pickupText;
+
     private GameObject[] gun_wheel_images;
     private bool isRotating = false; // Flag to check if the wheel is rotating
     private GameObject[] gun_holders;
     private GameObject[] guns = { null, null, null, null, null, null, null, null }; // our collection of guns
     private int current_idx = 0; // What Gun we are currently on
 
-    bool updated = false;
+    private bool updated = false;
+    private pick_up_mode pick_up_mode = pick_up_mode.nothing;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +49,9 @@ public class GunQueue : MonoBehaviour
             }
         }
 
+        this.UpdateGunWheel();
+        this.UpdateAmmoText();
+
         // Initialize the first gun wheel image to be scaled and translated
         StartCoroutine(GrowAndMoveUp(gun_wheel_images[current_idx]));
     }
@@ -46,22 +59,51 @@ public class GunQueue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameObject closestGun = GetClosestGun();
+        if (closestGun != null)
+        {
+            ShowPickupText(closestGun);
+        }
+        else
+        {
+            HidePickupText();
+        }
+
         if (isRotating)
         {
             return; // Block input during rotation
         }
 
+        if (this.pick_up_mode == pick_up_mode.pick_up && Input.GetKeyDown(KeyCode.P) && closestGun != null) {
+            int temp_spot = this.SpotAvailable();
+            this.guns[temp_spot] = closestGun;
+            closestGun.GetComponent<Gun>().gun_in_world = false;
+            Instantiate(closestGun, this.gun_holders[temp_spot].transform, false);
+            Destroy(closestGun);
+            closestGun = null;
+            this.UpdateGunWheel();
+            // Do we also want it to flip to it?
+
+        }
+
+        if (this.pick_up_mode == pick_up_mode.replace && Input.GetKeyDown(KeyCode.L) && closestGun != null)
+        {
+        }
+
         // Fire the current gun when Space is pressed
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            this.guns[this.current_idx].GetComponent<Gun>().Fire();
+            if (this.guns[this.current_idx].GetComponent<Gun>().Fire())
+            {
+                this.UpdateAmmoText();
+            }
         }
 
         // Rotate to the previous gun when Mouse0 or Q is pressed
         if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)) && !updated)
         {
             bool found = false;
-            
+
             if (!found)
             {
                 StartCoroutine(SwitchGun(-1));
@@ -73,11 +115,28 @@ public class GunQueue : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.E)) && !updated)
         {
             bool found = false;
-            
+
             if (!found)
             {
                 StartCoroutine(SwitchGun(1));
                 updated = true;
+            }
+        }
+    }
+
+    private void UpdateAmmoText()
+    {
+        this.ammo_text.text = this.guns[this.current_idx].GetComponent<Gun>().GetAmmoText();
+    }
+
+    private void UpdateGunWheel()
+    {
+        for (int i = 0; i < this.guns.Length; i++)
+        {
+            Transform temp_parent = this.gun_wheel_images[i].transform;
+            if (this.guns[i] != null)
+            {
+                Instantiate(this.guns[i].GetComponent<Gun>().gun_Icon, temp_parent, false);
             }
         }
     }
@@ -95,6 +154,8 @@ public class GunQueue : MonoBehaviour
 
         // Rotate the gun wheel
         yield return StartCoroutine(RotateGunWheel());
+
+        this.UpdateAmmoText();
 
         // Grow and move up the new gun wheel image
         yield return StartCoroutine(GrowAndMoveUp(gun_wheel_images[current_idx]));
@@ -173,4 +234,65 @@ public class GunQueue : MonoBehaviour
         gunImage.transform.localScale = targetScale;
         gunImage.transform.position = targetPosition;
     }
+    private GameObject GetClosestGun()
+    {
+        GameObject[] found_guns = GameObject.FindGameObjectsWithTag("Gun");
+        GameObject closestGun = null;
+        float closestDistance = 5.0f;  // Distance threshold
+
+        foreach (GameObject gun in found_guns)
+        {
+            if (gun.GetComponent<Gun>().gun_in_world)
+            {
+                float distance = Vector3.Distance(this.transform.position, gun.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestGun = gun;
+                }
+            }
+        }
+
+        return closestGun;
+    }
+
+    private void ShowPickupText(GameObject gun)
+    {
+        if (pickupText != null)
+        {
+            pickupText.enabled = true;
+            Vector3 screenPosition = (gun.transform.position + new Vector3(0.0f, 2.0f, -5.0f));
+            pickupText.transform.position = screenPosition;
+            int temp_spot = SpotAvailable();
+            if (SpotAvailable() != -1)
+            {
+                pickupText.text = "Press P to pick up";
+                this.pick_up_mode = pick_up_mode.pick_up;
+            }
+            else
+            {
+                pickupText.text = "Press L to replace";
+                this.pick_up_mode = pick_up_mode.replace;
+            }
+        }
+    }
+
+    private void HidePickupText()
+    {
+        if (pickupText != null)
+        {
+            pickupText.enabled = false;
+            this.pick_up_mode = pick_up_mode.nothing;
+        }
+    }
+
+    private int SpotAvailable() {
+        for (int i = 0; i < this.guns.Length; i++) {
+            if (this.guns[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
+
