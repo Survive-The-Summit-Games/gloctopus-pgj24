@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun_name: Hand Gun
   gun_description: A normal Hand Gun
-  gun_Icon: {fileID: 471369811740608198, guid: 6dd0063538050a74eb499c362e5c8f29, type: 3}
+  gun_Icon: {fileID: -1940042491, guid: f64a991696460ca4a9da7deef4362aa5, type: 3}
   gun_exit:
   - {fileID: 3403797969943411122}
   gun_type: 0

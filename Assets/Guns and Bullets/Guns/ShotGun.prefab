@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun_name: Shotgun
   gun_description: Double pump
-  gun_Icon: {fileID: 8575056321628396284, guid: 5282de95771f71e4eb37dd1df46c3f86, type: 3}
+  gun_Icon: {fileID: -1365306233, guid: f64a991696460ca4a9da7deef4362aa5, type: 3}
   gun_exit:
   - {fileID: 3403797969943411122}
   - {fileID: 2936118857757096258}

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
+using UnityEngine.U2D;
 
 public enum pick_up_mode
 {
@@ -82,6 +83,7 @@ public class GunQueue : MonoBehaviour
             PickUp(closestGun, false);
             closestGun = null;
             this.UpdateAmmoText();
+            this.UpdateGunWheel();
             // Do we also want it to flip to it?
         }
 
@@ -92,12 +94,12 @@ public class GunQueue : MonoBehaviour
             temp_throw_gun.GetComponent<Gun>().gun_in_world = true;
             temp_throw_gun.GetComponent<Gun>().arm_rb = null;
             temp_throw_gun.transform.parent = closestGun.transform.parent;
-            temp_throw_gun.transform.position = closestGun.transform.position;
-            temp_throw_gun.transform.rotation = closestGun.transform.rotation;
+            temp_throw_gun.transform.SetPositionAndRotation(closestGun.transform.position, closestGun.transform.rotation);
             temp_throw_gun.transform.localScale = closestGun.transform.localScale;
             PickUp(closestGun, true);
             closestGun = null;
             this.UpdateAmmoText();
+            this.UpdateGunWheel();
         }
 
         // Fire the current gun when Space is pressed
@@ -142,7 +144,6 @@ public class GunQueue : MonoBehaviour
             temp_spot = this.SpotAvailable();
         }
         this.guns[temp_spot] = closestGun;
-        this.gun_wheel_images[temp_spot] = closestGun.GetComponent<Gun>().gun_Icon;
         closestGun.GetComponent<Gun>().gun_in_world = false;
         closestGun.GetComponent<Gun>().arm_rb = gun_targets[temp_spot].GetComponent<Rigidbody2D>();
         closestGun.transform.parent = this.gun_holders[temp_spot].transform;
@@ -160,12 +161,34 @@ public class GunQueue : MonoBehaviour
     {
         for (int i = 0; i < this.guns.Length; i++)
         {
-            Transform temp_parent = this.gun_wheel_images[i].transform;
+            Image temp_old_image = this.gun_wheel_images[i].transform.GetComponentInChildren<Image>(true);
             if (this.guns[i] != null)
             {
-                
-                Instantiate(this.guns[i].GetComponent<Gun>().gun_Icon, temp_parent, false);
+                Sprite temp_new_sprite = this.guns[i].GetComponent<Gun>().gun_Icon;
 
+                if (temp_old_image != null && temp_new_sprite != null)
+                {
+                    // Set the sprite of the Image
+                    temp_old_image.sprite = temp_new_sprite;
+
+                    // Get the sprite dimensions
+                    float spriteWidth = temp_new_sprite.rect.width;
+                    float spriteHeight = temp_new_sprite.rect.height;
+                    float pixelsPerUnit = temp_new_sprite.pixelsPerUnit;
+
+                    // Calculate the size in units
+                    float widthInUnits = spriteWidth / pixelsPerUnit;
+                    float heightInUnits = spriteHeight / pixelsPerUnit;
+
+                    // Adjust the RectTransform size
+                    RectTransform rectTransform = temp_old_image.GetComponent<RectTransform>();
+                    rectTransform.sizeDelta = new Vector2(widthInUnits, heightInUnits);
+                }
+
+                temp_old_image.enabled = true;
+            }
+            else {
+                temp_old_image.enabled = false;
             }
         }
     }
@@ -305,7 +328,6 @@ public class GunQueue : MonoBehaviour
             pickupText.enabled = true;
             Vector3 screenPosition = (gun.transform.position + new Vector3(0.0f, 2.0f, -5.0f));
             pickupText.transform.position = screenPosition;
-            int temp_spot = SpotAvailable();
             if (SpotAvailable() != -1)
             {
                 pickupText.text = "Press P to pick up";

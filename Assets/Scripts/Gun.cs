@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
     // Gun Flavor
     public string gun_name;
     public string gun_description;
-    public GameObject gun_Icon;
+    public Sprite gun_Icon;
 
     // Hidden Info
     private int gun_id;

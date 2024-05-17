@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun_name: Machine Gun
   gun_description: A killer weapon
-  gun_Icon: {fileID: 8337143400019446734, guid: 4dcc09cca67d5da4497fa20fc48ad1ad, type: 3}
+  gun_Icon: {fileID: -763335740, guid: f64a991696460ca4a9da7deef4362aa5, type: 3}
   gun_exit:
   - {fileID: 3403797969943411122}
   gun_type: 0
