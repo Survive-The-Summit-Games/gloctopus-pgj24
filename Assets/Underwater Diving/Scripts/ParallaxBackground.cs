@@ -1,82 +1,56 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParallaxBackground : MonoBehaviour {
+public class ParallaxBackground : MonoBehaviour
+{
 
-	public float backgroundSize;
-	public float parallaxSpeed;
+    public Sprite backgroundSprite;
+    public int width;
+    public int height;
+    public float parallaxSpeed;
+    public float thresholdX;
+    public float thresholdY;
+    private List<Transform> childTransforms;
 
-	private Transform cameraTransform;
-	private Transform[] layers;
-	private float viewZone = 10;
-	private int leftIndex;
-	private int rightIndex;
-	private float lastCameraX;
-	private float lastCameraY;
+    private Transform cameraTransform;
+    private int spriteWidth;
+    private int spriteHeight;
 
-	// Use this for initialization
-	void Start () {
-		cameraTransform = Camera.main.transform;
-		lastCameraX = cameraTransform.position.x;
-		layers = new Transform[transform.childCount];
+    // Use this for initialization
+    void Start()
+    {
+        childTransforms = new List<Transform>();
+        cameraTransform = Camera.main.transform;
+        spriteWidth = (int)backgroundSprite.bounds.size.x;
+        spriteHeight = (int)backgroundSprite.bounds.size.y;
 
-		for(int i = 0; i < transform.childCount; i++){
-			layers [i] = transform.GetChild (i);
-		}
+        for (int w = 0; w < width; w++)
+        {
+            for (int h = 0; h < height; h++)
+            {
+                GameObject child = new GameObject();
+                child.transform.parent = transform;
+                SpriteRenderer renderer = child.AddComponent<SpriteRenderer>();
+                renderer.sprite = backgroundSprite;
+                child.transform.position = new Vector3(w * spriteWidth - (spriteHeight * width / 2), h * spriteHeight - (spriteHeight * height / 2), 0);
+                childTransforms.Add(child.transform);
+            }
+        }
+    }
 
-		leftIndex = 0;
-		rightIndex = layers.Length - 1;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-		parallaxHor ();
-		parallaxVer ();
+    // Update is called once per frame
+    void Update()
+    {
+        foreach (Transform child in childTransforms)
+        {
+            float deltaX = cameraTransform.position.x - child.transform.position.x;
+            float deltaY = cameraTransform.position.y - child.transform.position.y;
 
-
-		if(cameraTransform.position.x < (layers[leftIndex].transform.position.x + viewZone) ){
-			ScrollLeft ();			
-		}
-
-		if(cameraTransform.position.x > (layers[rightIndex].transform.position.x - viewZone) ){
-			ScrollRight ();			
-		}
-
-	}
-
-	private void parallaxHor(){
-		float deltaX = cameraTransform.position.x - lastCameraX;
-		transform.position += Vector3.right * (deltaX * parallaxSpeed);
-		lastCameraX = cameraTransform.position.x;
-	}
-
-	private void parallaxVer(){
-		float deltaY = cameraTransform.position.y - lastCameraY;
-		transform.position += Vector3.up * (deltaY * parallaxSpeed);
-		lastCameraY = cameraTransform.position.y;	
-	}
-
-	private void ScrollLeft(){
- 
-		layers [rightIndex].position = new Vector3(layers[leftIndex].position.x - backgroundSize, layers[leftIndex].position.y, 0f );
-		leftIndex = rightIndex;
-		rightIndex--;
-		if(rightIndex < 0){
-			rightIndex = layers.Length - 1;
-		}
-	}
-
-	private void ScrollRight(){
- 
-		layers [leftIndex].position = new Vector3(layers[rightIndex].position.x + backgroundSize, layers[leftIndex].position.y, 0f );
-		rightIndex = leftIndex;
-		leftIndex++;
-		if(leftIndex == layers.Length){
-			leftIndex = 0;	
-		}
-	}
-
-
+            if (deltaX > thresholdX) child.transform.position = new Vector3(child.position.x + spriteWidth * width, child.position.y, child.position.z);
+            if (deltaX <= -thresholdX) child.transform.position = new Vector3(child.position.x - spriteWidth * width, child.position.y, child.position.z);
+            if (deltaY > thresholdY) child.transform.position = new Vector3(child.position.x, child.position.y + spriteHeight * height, child.position.z);
+            if (deltaY <= -thresholdY) child.transform.position = new Vector3(child.position.x, child.position.y - spriteHeight * height, child.position.z);
+        }
+    }
 }

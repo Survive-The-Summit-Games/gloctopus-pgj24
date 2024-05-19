@@ -37,6 +37,10 @@ public class MeshGenerator : MonoBehaviour
     }
 
     void SetTile(int x, int y) {
+        /*
+         * 0 - Nuttin'
+         * 15 - Full Center
+         */
         Square square = squareGrid.squares[x, y];
 
         if (square.configuration == 0) return;
