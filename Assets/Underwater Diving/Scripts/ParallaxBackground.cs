@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour
@@ -16,12 +17,16 @@ public class ParallaxBackground : MonoBehaviour
     private Transform cameraTransform;
     private int spriteWidth;
     private int spriteHeight;
+    private float lastCameraX;
+    private float lastCameraY;
 
     // Use this for initialization
     void Start()
     {
         childTransforms = new List<Transform>();
         cameraTransform = Camera.main.transform;
+        lastCameraX = cameraTransform.position.x;
+        lastCameraY = cameraTransform.position.y;
         spriteWidth = (int)backgroundSprite.bounds.size.x;
         spriteHeight = (int)backgroundSprite.bounds.size.y;
 
@@ -42,6 +47,9 @@ public class ParallaxBackground : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        parallaxHor();
+        parallaxVer();
+
         foreach (Transform child in childTransforms)
         {
             float deltaX = cameraTransform.position.x - child.transform.position.x;
@@ -52,5 +60,20 @@ public class ParallaxBackground : MonoBehaviour
             if (deltaY > thresholdY) child.transform.position = new Vector3(child.position.x, child.position.y + spriteHeight * height, child.position.z);
             if (deltaY <= -thresholdY) child.transform.position = new Vector3(child.position.x, child.position.y - spriteHeight * height, child.position.z);
         }
+    }
+
+
+    private void parallaxHor()
+    {
+        float deltaX = cameraTransform.position.x - lastCameraX;
+        transform.position += Vector3.right * (deltaX * parallaxSpeed);
+        lastCameraX = cameraTransform.position.x;
+    }
+
+    private void parallaxVer()
+    {
+        float deltaY = cameraTransform.position.y - lastCameraY;
+        transform.position += Vector3.up * (deltaY * parallaxSpeed);
+        lastCameraY = cameraTransform.position.y;
     }
 }
