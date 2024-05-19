@@ -15,7 +15,7 @@ public class EnemyFollow : EnemyGeneral
 
     private void LookAtTarget()
     {
-        Vector3 direction = (this.playerTransform.position - transform.position).normalized;
+        Vector3 direction = (this.playerTransform.position - transform.position);
         Quaternion lookRotation = Quaternion.LookRotation(direction, this.transform.up);
         lookRotation.y = 0;
         lookRotation.x = 0;

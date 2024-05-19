@@ -131,45 +131,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1313671030706098872, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 607277970901488759, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3065781569955605486, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 607277970901488759, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3876928697735325034, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 2656111495992573672, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2656111495992573672, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2656111495992573672, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3889801210078232773, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
       propertyPath: m_Name
       value: Gloctopus_and_Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 4255935352000265766, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4375168433846840771, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4526915218207218239, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4925368132255697236, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7192596807530991458, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7503484073596807828, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8599750119098437955, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -276,7 +260,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 9ac146eb965354e8dabdbeef12886ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -297,8 +281,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19.3, y: -1.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -314,13 +298,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5b8ed83803c654486f65d11ecc6f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldOfViewAngle: 90
-  viewDistance: 20
+  fieldOfViewAngle: 70
+  viewDistance: 27
+  sense_distance: 7
   targetMask:
     serializedVersion: 2
     m_Bits: 128
   rotationSpeed: 5
-  movementSpeed: 2
+  movementSpeed: 4
+  time_between_bites: 0.35
+  bite_damage: 2
 --- !u!58 &1921214447
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -350,7 +337,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
