@@ -16,13 +16,9 @@ public class MapGenerator : MonoBehaviour
     public int randomFillPercent;
     [Range(0, 100)]
     public int hallwayDepth;
+    public bool createExit;
 
     int[,] map;
-
-    void Start()
-    {
-        GenerateMap();
-    }
 
     void Update()
     {
@@ -32,7 +28,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void GenerateMap()
+    public void GenerateMap()
     {
         map = new int[width, height];
         RandomFillMap();
@@ -44,7 +40,7 @@ public class MapGenerator : MonoBehaviour
 
         ProcessMap();
 
-        int borderSize = 1;
+        int borderSize = 16;
         int[,] borderedMap = new int[width + borderSize * 2, height + borderSize * 2];
 
         for (int x = 0; x < borderedMap.GetLength(0); x++)
@@ -60,6 +56,13 @@ public class MapGenerator : MonoBehaviour
                     borderedMap[x, y] = 1;
                 }
             }
+        }
+
+        if (createExit)
+        {
+            // Create exit
+            List<Coord> line = GetLine(new Coord(width / 2, 0), new Coord(width / 2, borderSize));
+            foreach (Coord c in line) DrawCircle(borderedMap, c, hallwayDepth);
         }
 
         MeshGenerator meshGen = GetComponent<MeshGenerator>();
@@ -100,6 +103,7 @@ public class MapGenerator : MonoBehaviour
                 survivingRooms.Add(new Room(roomRegion, map));
             }
         }
+
         survivingRooms.Sort();
         survivingRooms[0].isMainRoom = true;
         survivingRooms[0].isAccessibleFromMainRoom = true;
@@ -204,11 +208,11 @@ public class MapGenerator : MonoBehaviour
         List<Coord> line = GetLine(tileA, tileB);
         foreach (Coord c in line)
         {
-            DrawCircle(c, hallwayDepth);
+            DrawCircle(map, c, hallwayDepth);
         }
     }
 
-    void DrawCircle(Coord c, int r)
+    void DrawCircle(int[,] m, Coord c, int r)
     {
         for (int x = -r; x <= r; x++)
         {
@@ -220,7 +224,7 @@ public class MapGenerator : MonoBehaviour
                     int drawY = c.tileY + y;
                     if (IsInMapRange(drawX, drawY))
                     {
-                        map[drawX, drawY] = 0;
+                        m[drawX, drawY] = 0;
                     }
                 }
             }
@@ -369,14 +373,8 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
-                {
-                    map[x, y] = 1;
-                }
-                else
-                {
-                    map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? 1 : 0;
-                }
+                if (x == 0 || x == width - 1 || y == 0 || y == height - 1) map[x, y] = 1;
+                else map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? 1 : 0;
             }
         }
     }
