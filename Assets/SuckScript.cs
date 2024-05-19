@@ -29,4 +29,13 @@ public class SuckScript : MonoBehaviour
             rb.AddForce(Vector2.down * suckForce);
         }
     }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Gloctopus")
+        {
+            collision.gameObject.GetComponent<SimpleMovement>().enabled = true;
+        }
+    }
 }

@@ -67,14 +67,28 @@ public class ProgressionManager : MonoBehaviour
         bubbleEmitter.transform.position = new Vector3(exit.x, exit.y, 0);
 
         Debug.Log("room centers");
-        foreach (Vector2Int roomCenter in mapGenerator.roomCenters)
+        List<Vector2Int> roomCenters = mapGenerator.roomCenters;
+        Vector2IntHeight heightComparer = new Vector2IntHeight();
+        roomCenters.Sort(heightComparer);
+        Vector2Int spawnpoint = Vector2Int.zero;
+        for (int i = 0; i < roomCenters.Count; i++)
         {
+            Vector2Int roomCenter = roomCenters[i];
             if (Physics2D.OverlapCircle(roomCenter, 1f, mapMeshLayerMask) == null)
             {
-                Debug.Log(roomCenter);
-                Instantiate(roomMarker, new Vector3(roomCenter.x, roomCenter.y, 0), Quaternion.identity);
+                if (spawnpoint == Vector2.zero)
+                {
+                    spawnpoint = roomCenter;
+                } else
+                {
+                    Debug.Log(roomCenter);
+                    Instantiate(roomMarker, new Vector3(roomCenter.x, roomCenter.y, 0), Quaternion.identity);
+                }
             }
         }
+
+        Transform player = FindAnyObjectByType<SimpleMovement>().transform;
+        player.position = new Vector3(spawnpoint.x, spawnpoint.y, player.transform.position.z);
     }
 
     void NextLevel()
@@ -82,5 +96,13 @@ public class ProgressionManager : MonoBehaviour
         currentLevel++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GenerateMap();
+    }
+}
+
+public class Vector2IntHeight : IComparer<Vector2Int>
+{
+    public int Compare(Vector2Int a, Vector2Int b)
+    {
+        return a.y.CompareTo(b.y);
     }
 }

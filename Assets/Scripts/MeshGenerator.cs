@@ -36,6 +36,7 @@ public class MeshGenerator : MonoBehaviour
         }
 
         TilemapCollider2D tilemapCollider = gameObject.AddComponent<TilemapCollider2D>();
+        tilemapCollider.usedByComposite = true;
     }
 
     void SetTile(int x, int y) {

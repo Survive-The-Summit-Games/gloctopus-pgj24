@@ -1010,7 +1010,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun_wheel: {fileID: 744817939}
-  duration: 0.5
+  rotationDuration: 0.25
+  transformDuration: 0.5
+  ammo_text: {fileID: 0}
+  pickupText: {fileID: 0}
 --- !u!114 &405970042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1194,7 +1197,7 @@ Transform:
   m_GameObject: {fileID: 405970039}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 85, y: 211, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1439,6 +1442,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2881349003115377069, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
       insertIndex: -1
       addedObject: {fileID: 548357196}
+    - targetCorrespondingSourceObject: {fileID: 5204702677108372961, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1011812459}
+    - targetCorrespondingSourceObject: {fileID: 5204702677108372961, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1011812458}
   m_SourcePrefab: {fileID: 100100000, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
 --- !u!1 &485021814
 GameObject:
@@ -1487,8 +1496,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a042cd817b69524b9f23091262b2b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot_point: {fileID: 584950565}
-  rb: {fileID: 1728166506}
 --- !u!1 &485920818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,8 +1952,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a042cd817b69524b9f23091262b2b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot_point: {fileID: 737515856}
-  rb: {fileID: 977376600}
 --- !u!1 &737515855
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,8 +2246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a042cd817b69524b9f23091262b2b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot_point: {fileID: 809825569}
-  rb: {fileID: 1267418152}
 --- !u!1001 &975008731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2428,6 +2431,81 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1011812452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5204702677108372961, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
+  m_PrefabInstance: {fileID: 436692780}
+  m_PrefabAsset: {fileID: 0}
+--- !u!66 &1011812458
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011812452}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 1
+  m_CompositeGameObject: {fileID: 1011812452}
+--- !u!50 &1011812459
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011812452}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1025508807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2475,8 +2553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a042cd817b69524b9f23091262b2b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot_point: {fileID: 122309493}
-  rb: {fileID: 395203052}
 --- !u!1001 &1028428075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2629,8 +2705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a042cd817b69524b9f23091262b2b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot_point: {fileID: 1866231308}
-  rb: {fileID: 1294735817}
 --- !u!1 &1152188869
 GameObject:
   m_ObjectHideFlags: 0
@@ -2991,8 +3065,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a042cd817b69524b9f23091262b2b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot_point: {fileID: 1426680812}
-  rb: {fileID: 1745531930}
 --- !u!1 &1267418148
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,8 +3407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a042cd817b69524b9f23091262b2b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot_point: {fileID: 750337593}
-  rb: {fileID: 2100698105}
 --- !u!1 &1319490940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,8 +3806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a042cd817b69524b9f23091262b2b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot_point: {fileID: 776615745}
-  rb: {fileID: 131476416}
 --- !u!1001 &1612298115
 PrefabInstance:
   m_ObjectHideFlags: 0
