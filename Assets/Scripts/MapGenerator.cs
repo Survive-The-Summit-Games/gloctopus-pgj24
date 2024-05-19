@@ -11,6 +11,8 @@ public class MapGenerator : MonoBehaviour
 
     public string seed;
     public bool useRandomSeed;
+    [Range(0, 64)]
+    public int borderSize = 16;
 
     [Range(0, 100)]
     public int randomFillPercent;
@@ -18,17 +20,11 @@ public class MapGenerator : MonoBehaviour
     public int hallwayDepth;
     public bool createExit;
 
+    public List<Vector2Int> roomCenters;
+
     int[,] map;
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            GenerateMap();
-        }
-    }
-
-    public void GenerateMap()
+    public Vector2Int GenerateMap()
     {
         map = new int[width, height];
         RandomFillMap();
@@ -40,7 +36,6 @@ public class MapGenerator : MonoBehaviour
 
         ProcessMap();
 
-        int borderSize = 16;
         int[,] borderedMap = new int[width + borderSize * 2, height + borderSize * 2];
 
         for (int x = 0; x < borderedMap.GetLength(0); x++)
@@ -58,15 +53,29 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
+        Vector2Int exitCoords = new Vector2Int(width / 2, 0);
+
         if (createExit)
         {
             // Create exit
-            List<Coord> line = GetLine(new Coord(width / 2, 0), new Coord(width / 2, borderSize));
+            List<Coord> line = GetLine(new Coord(exitCoords.x, exitCoords.y), new Coord(exitCoords.x, exitCoords.y + borderSize));
             foreach (Coord c in line) DrawCircle(borderedMap, c, hallwayDepth);
         }
 
         MeshGenerator meshGen = GetComponent<MeshGenerator>();
         meshGen.GenerateMesh(borderedMap, 1);
+
+        return exitCoords;
+    }
+
+    List<Vector2Int> GetAllRoomCenters(List<Room> surviving) {
+        List<Vector2Int> centers = new List<Vector2Int>();
+        foreach (Room room in surviving)
+        {
+            centers.Add(room.GetCenter() + Vector2Int.one * borderSize);
+        }
+
+        return centers;
     }
 
     void ProcessMap()
@@ -104,9 +113,13 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
+        Debug.Log("# of rooms: " +  survivingRooms.Count);
+
         survivingRooms.Sort();
         survivingRooms[0].isMainRoom = true;
         survivingRooms[0].isAccessibleFromMainRoom = true;
+
+        roomCenters = GetAllRoomCenters(survivingRooms);
 
         ConnectClosestRooms(survivingRooms);
     }
@@ -203,7 +216,7 @@ public class MapGenerator : MonoBehaviour
     void CreatePassage(Room roomA, Room roomB, Coord tileA, Coord tileB)
     {
         Room.ConnectRooms(roomA, roomB);
-        //Debug.DrawLine (CoordToWorldPoint (tileA), CoordToWorldPoint (tileB), Color.green, 100);
+        Debug.DrawLine (CoordToWorldPoint (tileA), CoordToWorldPoint (tileB), Color.green, 100);
 
         List<Coord> line = GetLine(tileA, tileB);
         foreach (Coord c in line)
@@ -469,6 +482,18 @@ public class MapGenerator : MonoBehaviour
                     }
                 }
             }
+        }
+
+        public Vector2Int GetCenter()
+        {
+            int sumX = 0, sumY = 0;
+
+            foreach (Coord tile in this.tiles) {
+                sumX += tile.tileX;
+                sumY += tile.tileY;
+            }
+
+            return new Vector2Int(sumX / this.roomSize, sumY / this.roomSize);
         }
 
         public void SetAccessibleFromMainRoom()
