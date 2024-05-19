@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 161123004330485913}
   - component: {fileID: 5242828424988619957}
   - component: {fileID: 2377188418069039907}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gloctopus
   m_TagString: Gloctopus
   m_Icon: {fileID: 0}
@@ -4198,10 +4198,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandGun
       objectReference: {fileID: 0}
+    - target: {fileID: 2177976900639606494, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3110430773093584770, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3220725956625373356, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
       propertyPath: arm_rb
       value: 
       objectReference: {fileID: 7636026127180552780}
+    - target: {fileID: 4404642104065783262, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404665037717157732, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404714605472034426, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404785246057702884, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405191815869833486, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405470489501277454, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405496356158511812, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5875445529033654767, guid: 0a44d148d7a85204d823b9ec7f0056b8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.0010000004
