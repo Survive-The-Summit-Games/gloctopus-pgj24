@@ -35,7 +35,8 @@ public class MeshGenerator : MonoBehaviour
             }
         }
 
-        TilemapCollider2D tilemapCollider = gameObject.AddComponent<TilemapCollider2D>();
+        Destroy(gameObject.GetComponent<TilemapCollider2D>());
+        TilemapCollider2D tilemapCollider = gameObject.GetComponent<TilemapCollider2D>() != null ? gameObject.GetComponent<TilemapCollider2D>() : gameObject.AddComponent<TilemapCollider2D>();
         tilemapCollider.usedByComposite = true;
     }
 
