@@ -81,7 +81,7 @@ public class GunQueue : MonoBehaviour
         if (this.pick_up_mode == pick_up_mode.pick_up && Input.GetKeyDown(KeyCode.P) && closestGun != null)
         {
             PickUp(closestGun, false);
-            closestGun = null;
+            //closestGun = null;
             this.UpdateAmmoText();
             this.UpdateGunWheel();
             // Do we also want it to flip to it?
@@ -97,7 +97,7 @@ public class GunQueue : MonoBehaviour
             temp_throw_gun.transform.SetPositionAndRotation(closestGun.transform.position, closestGun.transform.rotation);
             temp_throw_gun.transform.localScale = closestGun.transform.localScale;
             PickUp(closestGun, true);
-            closestGun = null;
+            //closestGun = null;
             this.UpdateAmmoText();
             this.UpdateGunWheel();
         }
@@ -112,25 +112,17 @@ public class GunQueue : MonoBehaviour
         // Rotate to the previous gun when Mouse0 or Q is pressed
         if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Q)) && !updated)
         {
-            bool found = false;
-
-            if (!found)
-            {
-                StartCoroutine(SwitchGun(-1));
-                updated = true;
-            }
+            updated = true;
+            StartCoroutine(SwitchGun(-1));
         }
 
         // Rotate to the next gun when Mouse1 or E is pressed
         if ((Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.E)) && !updated)
         {
-            bool found = false;
 
-            if (!found)
-            {
-                StartCoroutine(SwitchGun(1));
-                updated = true;
-            }
+            updated = true;
+            StartCoroutine(SwitchGun(1));
+            
         }
     }
 
