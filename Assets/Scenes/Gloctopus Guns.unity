@@ -3433,14 +3433,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun_wheel: {fileID: 1778492496}
-<<<<<<< HEAD
   rotationDuration: 0.1
   transformDuration: 0.1
   ammo_text: {fileID: 537597290}
   pickupText: {fileID: 1064929976}
-=======
-  duration: 0.5
->>>>>>> main
 --- !u!4 &921389863683437967
 Transform:
   m_ObjectHideFlags: 0
