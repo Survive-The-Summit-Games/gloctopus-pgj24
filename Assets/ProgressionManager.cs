@@ -27,6 +27,9 @@ public class ProgressionManager : MonoBehaviour
     public LayerMask mapMeshLayerMask;
 
     public GameObject roomMarker;
+
+    [SerializeField]
+    GameObject[] possibleEnemies;
     
     void Awake()
     {
@@ -87,7 +90,7 @@ public class ProgressionManager : MonoBehaviour
 
         foreach (Vector2Int candidate in candidates)
         {
-            GameObject mine = Instantiate(roomMarker, new Vector3(candidate.x, candidate.y, 0), Quaternion.identity);
+            GameObject enemy = Instantiate(possibleEnemies[UnityEngine.Random.Range(0, possibleEnemies.Length)], new Vector3(candidate.x, candidate.y, 0), Quaternion.identity);
         }
 
         Transform player = FindAnyObjectByType<SimpleMovement>().transform;
