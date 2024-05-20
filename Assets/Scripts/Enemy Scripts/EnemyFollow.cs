@@ -15,11 +15,11 @@ public class EnemyFollow : EnemyGeneral
 
     private void LookAtTarget()
     {
-        Vector3 direction = (this.playerTransform.position - transform.position);
-        Quaternion lookRotation = Quaternion.LookRotation(direction, this.transform.up);
-        lookRotation.y = 0;
-        lookRotation.x = 0;
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        Vector3 direction = (this.playerTransform.position - transform.position).normalized;
+        direction.z = 0;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void MoveTowardsTarget()

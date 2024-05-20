@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 5242828424988619957}
   - component: {fileID: 2377188418069039907}
   - component: {fileID: 964068500882191014}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Gloctopus
   m_TagString: Gloctopus
   m_Icon: {fileID: 0}
