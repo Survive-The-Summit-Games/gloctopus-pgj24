@@ -28,6 +28,9 @@ public class ProgressionManager : MonoBehaviour
 
     public GameObject roomMarker;
 
+    [SerializeField]
+    GameObject[] possibleEnemies;
+    
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -47,6 +50,7 @@ public class ProgressionManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GenerateMap();
+        GetComponent<AudioSource>().Play();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -86,10 +90,10 @@ public class ProgressionManager : MonoBehaviour
 
         foreach (Vector2Int candidate in candidates)
         {
-            GameObject mine = Instantiate(roomMarker, new Vector3(candidate.x, candidate.y, 0), Quaternion.identity);
+            GameObject enemy = Instantiate(possibleEnemies[UnityEngine.Random.Range(0, possibleEnemies.Length)], new Vector3(candidate.x, candidate.y, 0), Quaternion.identity);
         }
 
-        Transform player = FindAnyObjectByType<SimpleMovement>().transform;
+        Transform player = GameObject.FindGameObjectWithTag("GloctopusParent").transform;
         player.position = new Vector3(spawnpoint.x, spawnpoint.y, player.transform.position.z);
     }
 

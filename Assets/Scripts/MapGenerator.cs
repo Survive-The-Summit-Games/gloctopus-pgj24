@@ -30,7 +30,7 @@ public class MapGenerator : MonoBehaviour
 
         map = new int[width, height];
         RandomFillMap();
-        DrawCircle(map, new Coord(exitCoords.x, exitCoords.y + 20), 10);
+        //DrawCircle(map, new Coord(exitCoords.x, exitCoords.y + 20), 10);
 
         for (int i = 0; i < 5; i++)
         {

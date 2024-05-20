@@ -167,6 +167,18 @@ PrefabInstance:
       propertyPath: mapMeshLayerMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 1460884023946003003, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
+      propertyPath: possibleEnemies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460884023946003003, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
+      propertyPath: possibleEnemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 8778013767486606121, guid: dbd0855133a9ebf4596d6b65811ca79d, type: 3}
+    - target: {fileID: 1460884023946003003, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
+      propertyPath: possibleEnemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 4278227325803390383, guid: 018debd39d85f4d42aa7f1bbf8d5e00b, type: 3}
     - target: {fileID: 2720048992795255882, guid: 1464ce5417430f44f865a417c5b13957, type: 3}
       propertyPath: m_Size.x
       value: 0
@@ -575,10 +587,6 @@ PrefabInstance:
     - target: {fileID: 8599750119098437955, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8714776614077866503, guid: cda62fc4f1502ed4c9157f58faed8b6f, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
