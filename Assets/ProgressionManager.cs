@@ -93,7 +93,7 @@ public class ProgressionManager : MonoBehaviour
             GameObject enemy = Instantiate(possibleEnemies[UnityEngine.Random.Range(0, possibleEnemies.Length)], new Vector3(candidate.x, candidate.y, 0), Quaternion.identity);
         }
 
-        Transform player = FindAnyObjectByType<SimpleMovement>().transform;
+        Transform player = GameObject.FindGameObjectWithTag("GloctopusParent").transform;
         player.position = new Vector3(spawnpoint.x, spawnpoint.y, player.transform.position.z);
     }
 
