@@ -1,6 +1,8 @@
+using Pathfinding;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
@@ -13,20 +15,18 @@ public class ProgressionManager : MonoBehaviour
     public static ProgressionManager Instance {  get { return instance; } }
 
     [Range(0, 10)]
-    public int currentLevel = 0;
+    [SerializeField] int currentLevel = 0;
 
     MapGenerator mapGenerator;
-    public Transform bubbleEmitter;
+    Transform bubbleEmitter;
 
 
-    public int baseWidth;
-    public int baseHeight;
+    [SerializeField] int baseWidth;
+    [SerializeField] int baseHeight;
 
-    public int baseRandomFillPercent;
+    [SerializeField] int baseRandomFillPercent;
 
     public LayerMask mapMeshLayerMask;
-
-    public GameObject roomMarker;
 
     [SerializeField]
     GameObject[] possibleEnemies;
@@ -35,22 +35,18 @@ public class ProgressionManager : MonoBehaviour
     {
         DontDestroyOnLoad(transform.gameObject);
 
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        if (instance != null && instance != this) Destroy(this.gameObject); 
+        else instance = this;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        bubbleEmitter = FindObjectOfType<SuckScript>().transform;
+        mapGenerator = FindObjectOfType<MapGenerator>();
         GenerateMap();
-        GetComponent<AudioSource>().Play();
+        GameObject.FindGameObjectWithTag("Depth_Counter").GetComponent<TextMeshProUGUI>().SetText("Depth: " + (currentLevel + 1));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -62,8 +58,6 @@ public class ProgressionManager : MonoBehaviour
     }
     void GenerateMap()
     {
-
-        mapGenerator = GetComponentInChildren<MapGenerator>();
         mapGenerator.width = baseWidth; //(int)(baseWidth * Mathf.Pow(0.9f, (float)currentLevel));
         mapGenerator.height = baseHeight; //(int)(baseHeight * Mathf.Pow(0.9f, (float)currentLevel));
         mapGenerator.randomFillPercent = baseRandomFillPercent;
@@ -72,8 +66,8 @@ public class ProgressionManager : MonoBehaviour
         boxCollider.offset = exit;
         bubbleEmitter.transform.position = new Vector3(exit.x, exit.y, 0);
 
-        AstarPath pathfinder = GetComponent<AstarPath>();
-        pathfinder.Scan();
+        // TOOD: Create custom size graphs https://arongranberg.com/astar/docs/gridgraph.html
+        AstarPath.active.Scan();
 
         Debug.Log("room centers");
         List<Vector2Int> roomCenters = mapGenerator.roomCenters;

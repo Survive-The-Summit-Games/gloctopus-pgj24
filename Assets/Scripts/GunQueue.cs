@@ -2,11 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 using Input = UnityEngine.Input;
-using System;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
-using UnityEngine.U2D;
+using UnityEngine.UI;
 
 public enum pick_up_mode
 {
@@ -26,7 +23,7 @@ public class GunQueue : MonoBehaviour
     private bool isRotating = false; // Flag to check if the wheel is rotating
     private GameObject[] gun_holders;
     private GameObject[] gun_targets;
-    private GameObject[] guns = { null, null, null, null, null, null, null, null }; // our collection of guns
+    private GameObject[] guns = new GameObject[8]; // our collection of guns
     private int current_idx = 0; // What Gun we are currently on
 
     private bool updated = false; 
@@ -153,10 +150,10 @@ public class GunQueue : MonoBehaviour
     {
         for (int i = 0; i < this.guns.Length; i++)
         {
-            Image temp_old_image = this.gun_wheel_images[i].transform.GetComponentInChildren<Image>(true);
+            Image temp_old_image = this.gun_wheel_images[i].GetComponentInChildren<Image>(true);
             if (this.guns[i] != null)
             {
-                Sprite temp_new_sprite = this.guns[i].GetComponent<Gun>().gun_Icon;
+                Sprite temp_new_sprite = this.guns[i].transform.GetComponent<Gun>().gun_Icon;
 
                 if (temp_old_image != null && temp_new_sprite != null)
                 {
