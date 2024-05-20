@@ -1,5 +1,9 @@
 using UnityEngine;
 
+public enum methods { 
+    sight, sense, nothing
+}
+
 
 [RequireComponent(typeof(Collider2D))]
 public abstract class EnemyGeneral : MonoBehaviour
@@ -15,13 +19,15 @@ public abstract class EnemyGeneral : MonoBehaviour
 
     protected float time_since_action = 0.0f;
 
+    protected methods method_trigger = methods.nothing;
+
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Gloctopus").transform;
         playerHealth = GameObject.FindGameObjectWithTag("Gloctopus").GetComponent<GloctopusHealth>();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         DetectPlayer();
         time_since_action += Time.deltaTime;
@@ -67,9 +73,7 @@ public abstract class EnemyGeneral : MonoBehaviour
         Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
 
-        bool done_already = false;
-
-        if (distanceToPlayer <= viewDistance && !done_already)
+        if (distanceToPlayer <= viewDistance && this.method_trigger == methods.nothing)
         {
             float angleToPlayer = Vector2.Angle(transform.right, directionToPlayer);
 
@@ -83,16 +87,19 @@ public abstract class EnemyGeneral : MonoBehaviour
 
                 if (hit.collider != null && hit.collider.CompareTag("Gloctopus"))
                 {
-                    done_already = true;
+                    method_trigger = methods.sight;
                     this.DoWhenSeen();
                 }
             }
         }
-        
-        if (distanceToPlayer <= this.sense_distance && !done_already) {
-            done_already = true;
+
+        if (distanceToPlayer <= this.sense_distance && this.method_trigger == methods.nothing)
+        {
+            method_trigger = methods.sense;
             this.DoWhenSeen();
         }
+
+        method_trigger = methods.nothing;
     }
 
     protected abstract void DoWhenSeen();
