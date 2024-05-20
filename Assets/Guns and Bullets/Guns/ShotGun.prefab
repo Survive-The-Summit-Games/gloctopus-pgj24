@@ -50,6 +50,10 @@ MonoBehaviour:
   gun_name: Shotgun
   gun_description: Double pump
   gun_Icon: {fileID: -1365306233, guid: f64a991696460ca4a9da7deef4362aa5, type: 3}
+  gunshotSfx: {fileID: 8300000, guid: 760b607eceb4f44408f25d1a12de52f7, type: 3}
+  gunshotVolume: 0.2
+  reloadSfx: {fileID: 8300000, guid: e27ee53b8338b5b2e964e3b899c1e273, type: 3}
+  reloadVolume: 0.5
   gun_exit:
   - {fileID: 3403797969943411122}
   - {fileID: 2936118857757096258}
