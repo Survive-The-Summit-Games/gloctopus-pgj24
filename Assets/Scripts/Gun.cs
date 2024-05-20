@@ -19,6 +19,12 @@ public class Gun : MonoBehaviour
     public string gun_name;
     public string gun_description;
     public Sprite gun_Icon;
+    public AudioClip gunshotSfx;
+    [Range(0.0f,1.0f)]
+    public float gunshotVolume = 0.5f;
+    public AudioClip reloadSfx;
+    [Range(0.0f,1.0f)]
+    public float reloadVolume = 0.5f;
 
     // Hidden Info
     private int gun_id;
@@ -92,11 +98,13 @@ public class Gun : MonoBehaviour
             current_Bullet.GetComponent<Bullet>().Fire(this.bullet_speed);
             current_Bullet.GetComponent<Bullet>().shot_from = this.gun_id;
             this.current_exit = (this.current_exit + 1 < this.gun_exit.Length) ? this.current_exit + 1 : 0;
+            GetComponent<AudioSource>().PlayOneShot(gunshotSfx, gunshotVolume);
             this.Recoil();
             return true;
         }
         else if (this.current_clip == 0 && this.gun_total_ammo > 0)
         {
+            GetComponent<AudioSource>().PlayOneShot(reloadSfx, reloadVolume);
             this.reload();
         }
         else { 

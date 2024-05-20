@@ -27,7 +27,7 @@ public class ProgressionManager : MonoBehaviour
     public LayerMask mapMeshLayerMask;
 
     public GameObject roomMarker;
-
+    
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -47,6 +47,7 @@ public class ProgressionManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GenerateMap();
+        GetComponent<AudioSource>().Play();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
