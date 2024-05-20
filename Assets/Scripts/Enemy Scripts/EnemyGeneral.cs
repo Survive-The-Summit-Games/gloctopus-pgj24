@@ -1,3 +1,4 @@
+using Pathfinding;
 using UnityEngine;
 
 public enum methods { 
@@ -16,6 +17,7 @@ public abstract class EnemyGeneral : MonoBehaviour
 
     protected Transform playerTransform;
     protected GloctopusHealth playerHealth;
+    protected AIPath path;
 
     protected float time_since_action = 0.0f;
 
@@ -23,6 +25,7 @@ public abstract class EnemyGeneral : MonoBehaviour
 
     void Start()
     {
+        path = GetComponent<AIPath>();
         playerTransform = GameObject.FindGameObjectWithTag("Gloctopus").transform;
         playerHealth = GameObject.FindGameObjectWithTag("Gloctopus").GetComponent<GloctopusHealth>();
     }

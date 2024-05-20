@@ -74,7 +74,7 @@ public class Gun : MonoBehaviour
         if (this.mainBody != null)
         {
             // Calculate the opposite direction relative to the parent's right direction
-            Vector2 direction = (transform.root.position - transform.position).normalized;
+            Vector2 direction = (mainBody.position - transform.position).normalized;
             Quaternion oppositeRotation = Quaternion.LookRotation(direction, this.mainBody.transform.right); // NATE this is yelling at me saying "view direction is zero"
             oppositeRotation.x = 0;
             oppositeRotation.y = 0;

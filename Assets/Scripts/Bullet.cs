@@ -5,8 +5,10 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Collider c;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     public float shot_from { get; set; }
+    [SerializeField]
+    private int damage;
 
 
     // Start is called before the first frame update
@@ -17,9 +19,19 @@ public class Bullet : MonoBehaviour
 
     public void Fire(float speed)
     {
-        this.rb = this.GetComponent<Rigidbody>();
-        Vector3 force_applied = this.transform.right;
-        force_applied.z = 0;
-        this.rb.AddForce(force_applied * speed, ForceMode.Impulse);
+        this.rb = this.GetComponent<Rigidbody2D>();
+        Vector2 force_applied = this.transform.right;
+        this.rb.AddForce(force_applied * speed);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        HealthManager healthManager = collision.GetComponent<HealthManager>();
+        if (healthManager != null)
+        {
+            healthManager.ChangeHealth(-damage);
+            Debug.Log("dealing damage");
+        }
+        Destroy(this);
     }
 }

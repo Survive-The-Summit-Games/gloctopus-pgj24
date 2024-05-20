@@ -72,6 +72,9 @@ public class ProgressionManager : MonoBehaviour
         boxCollider.offset = exit;
         bubbleEmitter.transform.position = new Vector3(exit.x, exit.y, 0);
 
+        AstarPath pathfinder = GetComponent<AstarPath>();
+        pathfinder.Scan();
+
         Debug.Log("room centers");
         List<Vector2Int> roomCenters = mapGenerator.roomCenters;
         Vector2IntHeight heightComparer = new Vector2IntHeight();
