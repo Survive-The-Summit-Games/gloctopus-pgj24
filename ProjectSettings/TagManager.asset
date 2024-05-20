@@ -10,6 +10,8 @@ TagManager:
   - Gun_Holder
   - Gun_Target
   - GloctopusParent
+  - Depth_Counter
+  - FadeInOut
   layers:
   - Default
   - TransparentFX

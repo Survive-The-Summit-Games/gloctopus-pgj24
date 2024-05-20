@@ -97,7 +97,7 @@ public class ProgressionManager : MonoBehaviour
     void NextLevel()
     {
         currentLevel++;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameObject.FindGameObjectWithTag("FadeInOut").GetComponent<FadeInFadeOut>().FadeOut();
     }
 }
 
