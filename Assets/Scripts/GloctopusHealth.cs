@@ -8,6 +8,10 @@ public class GloctopusHealth : MonoBehaviour
     public Slider healthSlider; // Reference to the UI Slider
     public float maxHealth = 100f; // Maximum health value
     private float currentHealth; // Current health value
+    [SerializeField]
+    GameObject bloodParticles;
+    [SerializeField]
+    GameObject loseScreen;
 
     void Start()
     {
@@ -22,10 +26,11 @@ public class GloctopusHealth : MonoBehaviour
         currentHealth -= amount;
         if (currentHealth < 0)
         {
-            currentHealth = 0;
-        }
-        else { 
-            // End the game here
+            GetComponent<SimpleMovement>().enabled = false;
+            GameObject.FindGameObjectWithTag("FadeInOut").GetComponent<FadeInFadeOut>().FadeOut();
+            GameObject particles = Instantiate(bloodParticles, transform);
+            particles.transform.localScale = Vector3.one * 20f;
+            loseScreen.SetActive(true);
         }
         UpdateHealthSlider();
     }

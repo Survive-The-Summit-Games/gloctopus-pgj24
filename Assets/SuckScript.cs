@@ -17,6 +17,7 @@ public class SuckScript : MonoBehaviour
             collision.gameObject.GetComponent<SimpleMovement>().enabled = false;
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             rb.AddForce(Vector2.down * initialSuckForce);
+            GameObject.FindGameObjectWithTag("FadeInOut").GetComponent<FadeInFadeOut>().FadeOut();
         }
     }
 

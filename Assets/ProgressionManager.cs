@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
@@ -14,8 +15,7 @@ public class ProgressionManager : MonoBehaviour
 
     public static ProgressionManager Instance {  get { return instance; } }
 
-    [Range(0, 10)]
-    [SerializeField] int currentLevel = 0;
+    int currentLevel = 0;
 
     MapGenerator mapGenerator;
     Transform bubbleEmitter;
@@ -85,9 +85,26 @@ public class ProgressionManager : MonoBehaviour
         Vector2Int spawnpoint = candidates[0];
         candidates.Remove(spawnpoint);
 
+
         foreach (Vector2Int candidate in candidates)
         {
-            GameObject enemy = Instantiate(possibleEnemies[UnityEngine.Random.Range(0, possibleEnemies.Length)], new Vector3(candidate.x, candidate.y, 0), Quaternion.identity);
+            int spawnedEnemies = 0;
+            int limit = UnityEngine.Random.Range(1, currentLevel + 1);
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (Physics2D.OverlapCircle(candidate + new Vector2Int(i, j), 0.5f, mapMeshLayerMask) == null)
+                    {
+                        GameObject enemy = Instantiate(possibleEnemies[UnityEngine.Random.Range(0, possibleEnemies.Length)], new Vector3(candidate.x, candidate.y, 0), Quaternion.identity);
+                        enemy.transform.parent = null;
+                        spawnedEnemies++;
+                    }
+
+                    if (spawnedEnemies >= limit) break;
+                }
+                if (spawnedEnemies >= limit) break;
+            }
         }
 
         Transform player = GameObject.FindGameObjectWithTag("GloctopusParent").transform;

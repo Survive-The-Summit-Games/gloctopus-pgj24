@@ -62,7 +62,7 @@ MonoBehaviour:
   rotationSpeed: 5
   movementSpeed: 4
   time_between_bites: 0.35
-  bite_damage: 2
+  bite_damage: 5
 --- !u!50 &5894791180827761459
 Rigidbody2D:
   serializedVersion: 4

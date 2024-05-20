@@ -6,8 +6,7 @@ public class Piranha : EnemyFollow
 {
     public float time_between_bites = 1.0f;
     public float bite_damage = 5.0f;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject player = collision.gameObject;
 
@@ -17,7 +16,7 @@ public class Piranha : EnemyFollow
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         GameObject player = collision.gameObject;
 
@@ -31,8 +30,7 @@ public class Piranha : EnemyFollow
             }
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         GameObject player = collision.gameObject;
 
