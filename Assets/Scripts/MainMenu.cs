@@ -122,7 +122,7 @@ public class MainMenu : MonoBehaviour
 
     public void LevelStart()
     {
-        // SceneManager.LoadScene( NATE PUT IT HERE);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void OpenCredits()
     {

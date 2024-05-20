@@ -7,6 +7,8 @@ public class SuckScript : MonoBehaviour
 {
     public float initialSuckForce;
     public float suckForce;
+    [SerializeField]
+    AudioClip nextLevelSound;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -17,7 +19,8 @@ public class SuckScript : MonoBehaviour
             collision.gameObject.GetComponent<SimpleMovement>().enabled = false;
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             rb.AddForce(Vector2.down * initialSuckForce);
-            GameObject.FindGameObjectWithTag("FadeInOut").GetComponent<FadeInFadeOut>().FadeOut();
+            GetComponent<AudioSource>().PlayOneShot(nextLevelSound);
+            ProgressionManager.Instance.NextLevel();
         }
     }
 

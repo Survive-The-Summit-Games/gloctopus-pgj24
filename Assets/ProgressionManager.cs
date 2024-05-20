@@ -111,7 +111,7 @@ public class ProgressionManager : MonoBehaviour
         player.position = new Vector3(spawnpoint.x, spawnpoint.y, player.transform.position.z);
     }
 
-    void NextLevel()
+    public void NextLevel()
     {
         currentLevel++;
         GameObject.FindGameObjectWithTag("FadeInOut").GetComponent<FadeInFadeOut>().FadeOut();

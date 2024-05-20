@@ -12,7 +12,10 @@ public class GloctopusHealth : MonoBehaviour
     GameObject bloodParticles;
     [SerializeField]
     GameObject loseScreen;
-
+    [SerializeField]
+    AudioClip loseGameSound;
+    [SerializeField]
+    AudioClip hurtSound;
     void Start()
     {
         // Initialize health
@@ -31,8 +34,12 @@ public class GloctopusHealth : MonoBehaviour
             GameObject particles = Instantiate(bloodParticles, transform);
             particles.transform.localScale = Vector3.one * 20f;
             loseScreen.SetActive(true);
+            GetComponent<AudioSource>().PlayOneShot(loseGameSound);
+        } else
+        {
+            UpdateHealthSlider();
+            GetComponent<AudioSource>().PlayOneShot(hurtSound);
         }
-        UpdateHealthSlider();
     }
 
     // Method to gain health
