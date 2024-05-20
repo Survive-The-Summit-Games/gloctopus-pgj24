@@ -898,8 +898,8 @@ GameObject:
   - component: {fileID: 2299043691281262057}
   - component: {fileID: 2107168079702453527}
   - component: {fileID: 7580239491680294917}
-  - component: {fileID: 684020498334329193}
   - component: {fileID: 2042533427423369002}
+  - component: {fileID: 8491436104425322317}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1025,23 +1025,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &684020498334329193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831156398843590412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e010898a11796564e93fcd7eae89f6f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distanceJoint2Ds: []
-  medianDistance: 0
-  deltaDistance: 0
-  stretchSpeed: 0
-  maxSpeed: 0
 --- !u!50 &2042533427423369002
 Rigidbody2D:
   serializedVersion: 4
@@ -1069,6 +1052,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8491436104425322317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831156398843590412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b55285da54b92049a81f1612825a9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 282532434636111543}
+  dampenAmount: 0.143
 --- !u!1 &1869455070727710009
 GameObject:
   m_ObjectHideFlags: 0
@@ -4323,6 +4320,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -857310247, guid: 4081482d99306984c94aa3774836a5b2, type: 3}
+    - target: {fileID: 3193952470394814148, guid: f68bfe9a36f196e47a4e2cc4fee59be8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -169.00002
+      objectReference: {fileID: 0}
     - target: {fileID: 3240263356309060949, guid: f68bfe9a36f196e47a4e2cc4fee59be8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
