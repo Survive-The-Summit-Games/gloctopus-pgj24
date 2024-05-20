@@ -26,8 +26,11 @@ public class MapGenerator : MonoBehaviour
 
     public Vector2Int GenerateMap()
     {
+        Vector2Int exitCoords = new Vector2Int(UnityEngine.Random.Range(0, width), 0);
+
         map = new int[width, height];
         RandomFillMap();
+        DrawCircle(map, new Coord(exitCoords.x, exitCoords.y + 20), 10);
 
         for (int i = 0; i < 5; i++)
         {
@@ -53,13 +56,13 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        Vector2Int exitCoords = new Vector2Int(width / 2, 0);
+        exitCoords = new Vector2Int(exitCoords.x + borderSize, exitCoords.y);
 
         if (createExit)
         {
             // Create exit
-            List<Coord> line = GetLine(new Coord(exitCoords.x, exitCoords.y), new Coord(exitCoords.x, exitCoords.y + borderSize));
-            foreach (Coord c in line) DrawCircle(borderedMap, c, hallwayDepth);
+            List<Coord> line = GetLine(new Coord(exitCoords.x, 0), new Coord(exitCoords.x, exitCoords.y + borderSize));
+            foreach (Coord c in line) DrawCircle(borderedMap, c, 10);
         }
 
         MeshGenerator meshGen = GetComponent<MeshGenerator>();

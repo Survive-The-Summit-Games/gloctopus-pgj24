@@ -40,9 +40,11 @@ public class ProgressionManager : MonoBehaviour
         {
             instance = this;
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GenerateMap();
     }
@@ -58,29 +60,50 @@ public class ProgressionManager : MonoBehaviour
     {
 
         mapGenerator = GetComponentInChildren<MapGenerator>();
-        mapGenerator.width = (int)(baseWidth * Mathf.Pow(0.9f, (float)currentLevel));
-        mapGenerator.height = (int)(baseHeight * Mathf.Pow(0.9f, (float)currentLevel));
-        mapGenerator.randomFillPercent = baseRandomFillPercent + currentLevel;
+        mapGenerator.width = baseWidth; //(int)(baseWidth * Mathf.Pow(0.9f, (float)currentLevel));
+        mapGenerator.height = baseHeight; //(int)(baseHeight * Mathf.Pow(0.9f, (float)currentLevel));
+        mapGenerator.randomFillPercent = baseRandomFillPercent;
         Vector2Int exit = mapGenerator.GenerateMap();
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.offset = exit;
         bubbleEmitter.transform.position = new Vector3(exit.x, exit.y, 0);
 
         Debug.Log("room centers");
-        foreach (Vector2Int roomCenter in mapGenerator.roomCenters)
+        List<Vector2Int> roomCenters = mapGenerator.roomCenters;
+        Vector2IntHeight heightComparer = new Vector2IntHeight();
+        List<Vector2Int> candidates = new List<Vector2Int>();
+        foreach (Vector2Int roomCenter in roomCenters)
         {
-            if (Physics2D.OverlapCircle(roomCenter, 1f, mapMeshLayerMask) == null)
+            if (Physics2D.OverlapCircle(roomCenter, 0.5f, mapMeshLayerMask) == null)
             {
-                Debug.Log(roomCenter);
-                Instantiate(roomMarker, new Vector3(roomCenter.x, roomCenter.y, 0), Quaternion.identity);
+                candidates.Add(roomCenter);
             }
         }
+        candidates.Sort(heightComparer);
+        candidates.Reverse();
+        Vector2Int spawnpoint = candidates[0];
+        candidates.Remove(spawnpoint);
+
+        foreach (Vector2Int candidate in candidates)
+        {
+            GameObject mine = Instantiate(roomMarker, new Vector3(candidate.x, candidate.y, 0), Quaternion.identity);
+        }
+
+        Transform player = FindAnyObjectByType<SimpleMovement>().transform;
+        player.position = new Vector3(spawnpoint.x, spawnpoint.y, player.transform.position.z);
     }
 
     void NextLevel()
     {
         currentLevel++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        GenerateMap();
+    }
+}
+
+public class Vector2IntHeight : IComparer<Vector2Int>
+{
+    public int Compare(Vector2Int a, Vector2Int b)
+    {
+        return a.y.CompareTo(b.y);
     }
 }
